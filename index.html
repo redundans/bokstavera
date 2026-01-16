@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+	<meta charset="utf-8">
+	<title>Bokstavera</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<script src="//unpkg.com/alpinejs" defer></script>
+	<script src="dist/confetti.browser.min.js"></script>
+	<link href="dist/styles.css" rel="stylesheet" />
+	<script>
+		const words = {
+			"sv" : [
+				{
+					letter: "A",
+					word: "Adam"
+				},
+				{
+					letter: "B",
+					word: "Bertil"
+				},
+				{
+					letter: "C",
+					word: "Cesar"
+				},
+				{
+					letter: "D",
+					word: "David"
+				},
+				{
+					letter: "E",
+					word: "Erik"
+				},
+				{
+					letter: "F",
+					word: "Filip"
+				},
+				{
+					letter: "G",
+					word: "Gustav"
+				},
+				{
+					letter: "H",
+					word: "Helge"
+				},
+				{
+					letter: "I",
+					word: "Ivar"
+				},
+				{
+					letter: "J",
+					word: "Johan"
+				},
+				{
+					letter: "K",
+					word: "Kalle"
+				},
+				{
+					letter: "L",
+					word: "Ludvig"
+				},
+				{
+					letter: "M",
+					word: "Martin"
+				},
+				{
+					letter: "N",
+					word: "Niklas"
+				},
+				{
+					letter: "O",
+					word: "Olof"
+				},
+				{
+					letter: "P",
+					word: "Petter"
+				},
+				{
+					letter: "Q",
+					word: "Qvintus"
+				},
+				{
+					letter: "R",
+					word: "Rudolf"
+				},
+				{
+					letter: "S",
+					word: "Sigurd"
+				},
+				{
+					letter: "T",
+					word: "Tore"
+				},
+				{
+					letter: "U",
+					word: "Urban"
+				},
+				{
+					letter: "V",
+					word: "Viktor"
+				},
+				{
+					letter: "W",
+					word: "Wilhelm"
+				},
+				{
+					letter: "X",
+					word: "Xerxes"
+				},
+				{
+					letter: "Y",
+					word: "Yngve"
+				},
+				{
+					letter: "Z",
+					word: "Zäta"
+				},
+				{
+					letter: "Å",
+					word: "Åke"
+				},
+				{
+					letter: "Ä",
+					word: "Ärlig"
+				},
+				{
+					letter: "Ö",
+					word: "Östen"
+				}
+			]
+		};
+	</script>
+</head>
+<body id="game" class="w-screen h-screen flex flex-col justify-between p-6 md:p-9"
+	x-init="updateGame"
+	x-data="{
+		correctAnswers: 0,
+		activeLetter: 'a',
+		answer: '',
+		lastWord: '',
+		updateGame() {
+			this.activeLetter = words.sv[Math.floor(Math.random()*words.sv.length)];
+		},
+		checkAnswer() {
+			if ( this.answer === '' )
+				return;
+			if ( this.activeLetter.word.toUpperCase() === this.answer.toUpperCase() ) {
+				confetti({
+					particleCount: 100,
+					spread: 70,
+					origin: {
+						y: 0.6
+					}
+				});
+				this.correctAnswers++;
+			} else {
+				this.correctAnswers = 0;
+				let body = document.getElementById('game');
+				body.classList.add('flash');
+				setTimeout(function() {
+					body.classList.remove('flash');
+				}, 500);
+			}
+			this.lastWord = this.activeLetter.word;
+			this.answer = '';
+			this.updateGame();
+		}
+	}"
+	>
+	<nav class="container mx-auto flex flex-row justify-between items-end">
+		<h1 class="text-lg md:text-xl font-extrabold">Bokstavera</h1>
+		<div>
+			Rätt:
+			<span
+				x-text="correctAnswers"
+			></span>
+		</div>
+	</nav>
+	<div class="h-full mx-auto container flex flex-col justify-center items-center">
+		<div class="flex flex-col items-center gap-6"
+			
+		>
+			
+			<div
+				id="letter"
+				x-text="activeLetter.letter"
+			></div>
+			
+			<form id="form" @submit.prevent="checkAnswer" class="input-wrapper mt-6">
+				<input
+					id="input"
+					type="text"
+					x-model="answer"
+					maxlength="activeLetter.length"
+					autocomplete="off"
+					onblur="this.focus()"
+					autofocus
+				>
+			</form>
+			
+			<div 
+				class="h-6 text-sm font-bold"
+				>
+				<div
+					x-show="lastWord"
+				>
+					Förra ordet:
+					<span
+						x-text="lastWord"
+					></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
