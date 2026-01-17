@@ -136,6 +136,14 @@ body {
 	@apply bg-white font-mono;
 }
 
+#game {
+	height: 100vh; /* Fallback for older browsers */
+	
+	@supports (height: 100dvh) {
+		height: 100dvh; /* Dynamic height for supported browsers */
+	}
+}
+
 #letter {
 	@apply text-7xl font-bold border rounded-xl bg-black text-white p-12;
 }

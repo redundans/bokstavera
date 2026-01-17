@@ -9,6 +9,124 @@
 	<link href="dist/styles.css" rel="stylesheet" />
 	<script>
 		const words = {
+			"en" : [
+				{
+					letter: "A",
+					word: "Alfa"
+				},
+				{
+					letter: "B",
+					word: "Bravo"
+				},
+				{
+					letter: "C",
+					word: "Charlie"
+				},
+				{
+					letter: "D",
+					word: "Delta"
+				},
+				{
+					letter: "E",
+					word: "Echo"
+				},
+				{
+					letter: "F",
+					word: "Foxtrot"
+				},
+				{
+					letter: "G",
+					word: "Golf"
+				},
+				{
+					letter: "H",
+					word: "Hotel"
+				},
+				{
+					letter: "I",
+					word: "India"
+				},
+				{
+					letter: "J",
+					word: "Juliett"
+				},
+				{
+					letter: "K",
+					word: "Kilo"
+				},
+				{
+					letter: "L",
+					word: "Lima"
+				},
+				{
+					letter: "M",
+					word: "Mike"
+				},
+				{
+					letter: "N",
+					word: "November"
+				},
+				{
+					letter: "O",
+					word: "Oscar"
+				},
+				{
+					letter: "P",
+					word: "Papa"
+				},
+				{
+					letter: "Q",
+					word: "Quebec"
+				},
+				{
+					letter: "R",
+					word: "Romea"
+				},
+				{
+					letter: "S",
+					word: "Sierra"
+				},
+				{
+					letter: "T",
+					word: "Tango"
+				},
+				{
+					letter: "U",
+					word: "Uniform"
+				},
+				{
+					letter: "V",
+					word: "Victor"
+				},
+				{
+					letter: "W",
+					word: "Whiskey"
+				},
+				{
+					letter: "X",
+					word: "X-ray"
+				},
+				{
+					letter: "Y",
+					word: "Yankee"
+				},
+				{
+					letter: "Z",
+					word: "Zulu"
+				},
+				{
+					letter: "Å",
+					word: "Alfa Alfa"
+				},
+				{
+					letter: "Ä",
+					word: "Alfa Echo"
+				},
+				{
+					letter: "Ö",
+					word: "Oscar Echo"
+				}
+			],
 			"sv" : [
 				{
 					letter: "A",
@@ -137,8 +255,10 @@
 		activeLetter: 'a',
 		answer: '',
 		lastWord: '',
+		english: false,
 		updateGame() {
-			this.activeLetter = words.sv[Math.floor(Math.random()*words.sv.length)];
+			language = (this.english === true) ? words.en : words.sv;
+			this.activeLetter = language[Math.floor(Math.random()*language.length)];
 		},
 		checkAnswer() {
 			if ( this.answer === '' )
@@ -174,9 +294,22 @@
 				x-text="correctAnswers"
 			></span>
 		</div>
+		<div class="flex flex-row gap-3 text-sm md:text-base">
+			<span
+				x-show="english"
+			>English</span>
+			<span
+				x-show="!english"
+			>Swedish</span>
+			<label for="hs-basic-usage" class="relative inline-block w-11 h-6 cursor-pointer">
+				<input type="checkbox" id="hs-basic-usage" x-model="english" class="peer sr-only" @change="correctAnswers=0;updateGame">
+				<span class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-black dark:bg-neutral-700 dark:peer-checked:bg-black peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
+				<span class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full dark:bg-neutral-400 dark:peer-checked:bg-white"></span>
+			</label>
+		</div>
 	</nav>
 	<div class="h-full mx-auto container flex flex-col justify-center items-center">
-		<div class="flex flex-col items-center gap-6"
+		<div class="-mb-24 md:mb-0 flex flex-col items-center gap-6"
 			
 		>
 			
