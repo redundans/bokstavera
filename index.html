@@ -130,7 +130,7 @@
 		};
 	</script>
 </head>
-<body id="game" class="w-screen h-screen flex flex-col justify-between p-6 md:p-9"
+<body id="game" class="w-screen h-dvh flex flex-col justify-between p-6 md:p-9"
 	x-init="updateGame"
 	x-data="{
 		correctAnswers: 0,
@@ -203,7 +203,7 @@
 				<div
 					x-show="lastWord"
 				>
-					Förra ordet:
+					Förra ordet var
 					<span
 						x-text="lastWord"
 					></span>
