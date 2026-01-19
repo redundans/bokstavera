@@ -263,8 +263,8 @@
   .w-11 {
     width: calc(var(--spacing) * 11);
   }
-  .w-screen {
-    width: 100vw;
+  .w-full {
+    width: 100%;
   }
   .-translate-y-1\/2 {
     --tw-translate-y: calc(calc(1/2 * 100%) * -1);
@@ -507,7 +507,7 @@ body {
   font-family: var(--font-mono);
 }
 #game {
-  height: 100vh;
+  height: 100%;
   @supports (height: 100dvh) {
     height: 100dvh;
   }
